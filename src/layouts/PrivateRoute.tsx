@@ -5,9 +5,10 @@ import { Navigate } from "react-router";
 
 const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const token = useAppSelector(currentToken);
+  console.log(!token);
 
   if (!token) {
-    <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   return children;

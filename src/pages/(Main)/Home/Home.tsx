@@ -1,11 +1,15 @@
-
+import { FeaturedProducts } from "../../../components/main/Featured";
+import Hero from "../../../components/main/Hero";
+import { Testimonials } from "../../../components/main/Testimonial";
 
 const Home: React.FC = () => {
   return (
     <>
-    <h1>hello</h1>
+      <Hero />
+      <FeaturedProducts />
+      <Testimonials/>
     </>
-  )
+  );
 };
 
 export default Home;

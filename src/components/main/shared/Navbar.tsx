@@ -25,8 +25,8 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-slate-500 p-4">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className="bg-primary p-4 sticky top-0 z-50">
+      <div className="container  mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="text-white text-2xl font-bold">My Bookstore</div>
 
@@ -102,10 +102,7 @@ const Navbar: React.FC = () => {
                 )}
               </div>
             ) : (
-              <Link
-                to="/login"
-                className="block text-white py-2"
-              >
+              <Link to="/login" className="block text-white py-2">
                 Join
               </Link>
             )}
@@ -119,25 +116,16 @@ const Navbar: React.FC = () => {
           <Link to="/" className="block text-white py-2">
             Home
           </Link>
-          <Link
-            to="/products"
-            className="block text-white py-2"
-          >
+          <Link to="/products" className="block text-white py-2">
             Products
           </Link>
           <Link to="/about" className="block text-white py-2">
             About
           </Link>
-          <Link
-            to="/dashboard"
-            className="block text-white py-2"
-          >
+          <Link to="/dashboard" className="block text-white py-2">
             Dashboard
           </Link>
-          <Link
-            to="/checkout"
-            className="block text-white py-2"
-          >
+          <Link to="/checkout" className="block text-white py-2">
             Checkout
           </Link>
 
@@ -171,10 +159,7 @@ const Navbar: React.FC = () => {
                 )}
               </div>
             ) : (
-              <Link
-                to="/login"
-                className="block text-white py-2"
-              >
+              <Link to="/login" className="block text-white py-2">
                 Join
               </Link>
             )}
