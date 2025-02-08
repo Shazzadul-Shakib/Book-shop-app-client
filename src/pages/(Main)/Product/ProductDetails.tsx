@@ -8,7 +8,7 @@ const products = [
     price: 25,
     category: "Fiction",
     available: true,
-    image: "https://via.placeholder.com/300",
+    image: "/Hero/hero-bg.jpg",
     description: "A great fiction book to read.",
   },
   {
@@ -18,7 +18,7 @@ const products = [
     price: 30,
     category: "Non-Fiction",
     available: false,
-    image: "https://via.placeholder.com/300",
+    image: "/Hero/hero-bg.jpg",
     description: "A deep dive into non-fiction.",
   },
   {
@@ -28,7 +28,7 @@ const products = [
     price: 20,
     category: "Mystery",
     available: true,
-    image: "https://via.placeholder.com/300",
+    image: "/Hero/hero-bg.jpg",
     description: "A thrilling mystery novel.",
   },
   {
@@ -38,7 +38,7 @@ const products = [
     price: 35,
     category: "Sci-Fi",
     available: true,
-    image: "https://via.placeholder.com/300",
+    image: "/Hero/hero-bg.jpg",
     description: "An exciting sci-fi adventure.",
   },
   {
@@ -48,7 +48,7 @@ const products = [
     price: 40,
     category: "Biography",
     available: false,
-    image: "https://via.placeholder.com/300",
+    image: "/Hero/hero-bg.jpg",
     description: "The life story of a remarkable person.",
   },
 ];
@@ -86,7 +86,7 @@ const ProductDetails = () => {
         </p>
         <button
           onClick={() => navigate("/checkout")}
-          className="mt-6 w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-300"
+          className="mt-6 w-full bg-primary text-white py-3 rounded-md transition duration-300"
           disabled={!product.available}
         >
           Buy Now

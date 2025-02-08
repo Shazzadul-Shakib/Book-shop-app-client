@@ -1,52 +1,49 @@
 import { useNavigate } from "react-router";
+export const products = [
+  {
+    id: 1,
+    name: "Product 1",
+    price: "$50",
+    image: "/Hero/hero-bg.jpg",
+  },
+  {
+    id: 2,
+    name: "Product 2",
+    price: "$60",
+    image: "/Hero/hero-bg.jpg",
+  },
+  {
+    id: 3,
+    name: "Product 3",
+    price: "$70",
+    image: "/Hero/hero-bg.jpg",
+  },
+  {
+    id: 4,
+    name: "Product 4",
+    price: "$80",
+    image: "/Hero/hero-bg.jpg",
+  },
+  {
+    id: 5,
+    name: "Product 5",
+    price: "$90",
+    image: "/Hero/hero-bg.jpg",
+  },
+  {
+    id: 6,
+    name: "Product 6",
+    price: "$100",
+    image: "/Hero/hero-bg.jpg",
+  },
+];
 
 const AllProducts = () => {
   const navigate = useNavigate();
-  const products = [
-    {
-      id: 1,
-      name: "Product 1",
-      price: "$50",
-      image: "/Hero/hero-bg.jpg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: "$60",
-      image: "/Hero/hero-bg.jpg",
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: "$70",
-      image: "/Hero/hero-bg.jpg",
-    },
-    {
-      id: 4,
-      name: "Product 4",
-      price: "$80",
-      image: "/Hero/hero-bg.jpg",
-    },
-    {
-      id: 5,
-      name: "Product 5",
-      price: "$90",
-      image: "/Hero/hero-bg.jpg",
-    },
-    {
-      id: 6,
-      name: "Product 6",
-      price: "$100",
-      image: "/Hero/hero-bg.jpg",
-    },
-  ];
+  
 
   return (
     <div className="p-10 bg-primary min-h-screen text-white">
-      <h2 className="text-5xl font-extrabold text-center mb-12">
-        Our Collection
-      </h2>
-
       {/* Search & Filters */}
       <div className="flex flex-wrap justify-center gap-4 mb-10">
         <input
