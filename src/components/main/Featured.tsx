@@ -3,10 +3,13 @@ import { useNavigate } from "react-router";
 import { useGetAllProductQuery } from "../../redux/features/product/productApi";
 import ProductCardSkeleton from "./skeletons/ProductCardSkeleton";
 import { IBook } from "../../types/AllTypes";
+import { useAppDispatch } from "../../redux/hooks";
+import { addItem } from "../../redux/features/product/productCartSlice";
 
 export const FeaturedProducts: React.FC = () => {
   const navigate = useNavigate();
   const { data, isLoading } = useGetAllProductQuery(undefined);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="bg-primary py-10 px-6 text-white">
@@ -49,7 +52,10 @@ export const FeaturedProducts: React.FC = () => {
                   BDT {product.price}
                 </p>
 
-                <button className="mt-4 w-full rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:bg-primary/90">
+                <button
+                  onClick={() => dispatch(addItem({ ...product, quantity: 1 }))}
+                  className="mt-4 w-full rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:bg-primary/90"
+                >
                   Add to Cart
                 </button>
               </div>

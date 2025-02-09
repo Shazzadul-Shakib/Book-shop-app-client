@@ -9,18 +9,20 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
   currentUser,
   logoutUser,
 } from "../../../redux/features/auth/authSlice";
-import { useDispatch } from "react-redux";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const user = useAppSelector(currentUser);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart.books);
+
+  const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -68,8 +70,8 @@ const Navbar: React.FC = () => {
             className="relative text-white hover:text-gray-200"
           >
             <ShoppingCart size={24} />
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">
-              3
+            <span className="absolute h-5 w-5 -top-2 -right-2 flex items-center justify-center bg-red-500 text-white text-xs rounded-full px-2">
+              {totalQuantity}
             </span>
           </Link>
 

@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const Hero: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div
       className="relative flex items-center justify-center p-6 text-center text-white"
@@ -26,7 +28,10 @@ const Hero: React.FC = () => {
         </p>
 
         <div className="flex justify-center">
-          <button className="rounded-lg bg-gradient-to-r from-primary/50 via-primary/75 to-primary px-6 py-3 text-sm font-semibold text-secondary sm:text-base">
+          <button
+            onClick={() => navigate("/products")}
+            className="cursor-pointer rounded-lg bg-gradient-to-r from-primary/50 via-primary/75 to-primary px-6 py-3 text-sm font-semibold text-secondary sm:text-base"
+          >
             Browse Books
           </button>
         </div>

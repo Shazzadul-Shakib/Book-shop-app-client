@@ -2,10 +2,13 @@ import { useNavigate } from "react-router";
 import { useGetAllProductQuery } from "../../../redux/features/product/productApi";
 import ProductCardSkeleton from "../../../components/main/skeletons/ProductCardSkeleton";
 import { IBook } from "../../../types/AllTypes";
+import { useAppDispatch } from "../../../redux/hooks";
+import { addItem } from "../../../redux/features/product/productCartSlice";
 
 const AllProducts = () => {
   const navigate = useNavigate();
   const { data, isLoading } = useGetAllProductQuery(undefined);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="p-10 bg-primary min-h-screen text-white">
@@ -43,7 +46,7 @@ const AllProducts = () => {
           ? Array.from({ length: 6 }).map((_, index) => (
               <ProductCardSkeleton key={index} />
             ))
-          : data?.data?.map((product:IBook) => (
+          : data?.data?.map((product: IBook) => (
               <div
                 key={product._id}
                 className="group relative overflow-hidden rounded-lg bg-white p-4 text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl"
@@ -82,7 +85,10 @@ const AllProducts = () => {
                 >
                   {product.inStock ? "In Stock" : "Out of Stock"}
                 </p>
-                <button className="mt-4 w-full rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:bg-primary/90">
+                <button
+                  onClick={() => dispatch(addItem({ ...product, quantity: 1 }))}
+                  className="mt-4 w-full cursor-pointer rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:bg-primary/90"
+                >
                   Add to Cart
                 </button>
               </div>
