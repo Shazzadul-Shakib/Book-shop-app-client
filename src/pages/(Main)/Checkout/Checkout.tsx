@@ -1,19 +1,35 @@
+import { useEffect } from "react";
+import { useSearchParams } from "react-router"; // ✅ Import for reading URL params
 import { ShoppingCart, Trash2, Minus, Plus } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
+  clearCart,
   removeItem,
   updateItemQuantity,
 } from "../../../redux/features/product/productCartSlice";
+import { useCreateOrderMutation } from "../../../redux/features/order/orderSlice";
 
 const Checkout: React.FC = () => {
   const cart = useAppSelector((state) => state.cart.books);
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
+  const [searchParams] = useSearchParams(); // ✅ Read query params
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
+
+  const success = searchParams.get("success"); // ✅ Get success param
+
+  useEffect(() => {
+    if (success === "true") {
+      alert("🎉 Payment Successful! Thank you for your purchase.");
+      dispatch(clearCart());
+    }
+  }, [success, dispatch]);
 
   const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-  const totalPrice = cart.reduce((total, item) => {
-    const itemQuantityPrice = item.quantity * Number(item.price);
-    return total + itemQuantityPrice;
-  }, 0);
+  const totalPrice = cart.reduce(
+    (total, item) => total + item.quantity * Number(item.price),
+    0
+  );
 
   const handleRemove = (id: string) => {
     dispatch(removeItem(id));
@@ -21,6 +37,32 @@ const Checkout: React.FC = () => {
 
   const handleUpdateQuantity = (id: string, quantity: number) => {
     dispatch(updateItemQuantity({ id, quantity }));
+  };
+
+  const products = cart.map((item) => ({
+    productId: item._id,
+    quantity: item.quantity,
+  }));
+
+  const orderSummery = {
+    user: user?._id,
+    products,
+    totalPrice,
+  };
+
+  const handleCreateOrder = async () => {
+    try {
+      const res = await createOrder(orderSummery).unwrap(); // ✅ Use .unwrap() to handle errors
+
+      if (res?.success && res?.data) {
+        console.log("Order created successfully:", res);
+        window.location.href = res.data; // ✅ Redirect to the payment URL
+      } else {
+        console.error("Order creation failed:", res);
+      }
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
   };
 
   return (
@@ -57,13 +99,9 @@ const Checkout: React.FC = () => {
                     <button
                       disabled={product.quantity < 1}
                       className="cursor-pointer px-3 py-1 bg-gray-300 hover:bg-gray-400 rounded-l-lg"
-                      onClick={
-                        () =>
-                          product.quantity > 0 &&
-                          handleUpdateQuantity(
-                            product._id,
-                            product.quantity - 1
-                          )
+                      onClick={() =>
+                        product.quantity > 0 &&
+                        handleUpdateQuantity(product._id, product.quantity - 1)
                       }
                     >
                       <Minus size={16} />
@@ -82,13 +120,13 @@ const Checkout: React.FC = () => {
                     </button>
                   </div>
                   <button
-                    className="cursor-pointer  absolute top-4 right-4 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 sm:hidden"
+                    className="cursor-pointer absolute top-4 right-4 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 sm:hidden"
                     onClick={() => handleRemove(product._id)}
                   >
                     <Trash2 size={16} />
                   </button>
                   <button
-                    className="cursor-pointer  hidden sm:block px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                    className="cursor-pointer hidden sm:block px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
                     onClick={() => handleRemove(product._id)}
                   >
                     <Trash2 size={16} />
@@ -116,8 +154,11 @@ const Checkout: React.FC = () => {
                 <p className="font-bold">₹{totalPrice.toFixed(2)}</p>
               </div>
             </div>
-            <button className="w-full mt-6 bg-primary text-white py-3 rounded-lg font-semibold hover:bg-teal-600">
-              Proceed to Checkout
+            <button
+              onClick={handleCreateOrder}
+              className="cursor-pointer w-full mt-6 bg-primary text-white py-3 rounded-lg font-semibold hover:bg-teal-600"
+            >
+              {isLoading ? "loading" : "Proceed to Checkout"}
             </button>
           </div>
         </div>

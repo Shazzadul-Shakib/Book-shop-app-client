@@ -14,6 +14,7 @@ import {
   currentUser,
   logoutUser,
 } from "../../../redux/features/auth/authSlice";
+import { clearCart } from "../../../redux/features/product/productCartSlice";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -28,6 +29,7 @@ const Navbar: React.FC = () => {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const handleLogout = () => {
     dispatch(logoutUser());
+    dispatch(clearCart());
     setIsDropdownOpen(false);
   };
 

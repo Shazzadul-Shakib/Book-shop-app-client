@@ -85,9 +85,16 @@ const AllProducts = () => {
                 >
                   {product.inStock ? "In Stock" : "Out of Stock"}
                 </p>
+
                 <button
+                  disabled={!product.inStock}
                   onClick={() => dispatch(addItem({ ...product, quantity: 1 }))}
-                  className="mt-4 w-full cursor-pointer rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:bg-primary/90"
+                  className={`mt-4 w-full rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 
+    ${
+      product.inStock
+        ? "bg-primary hover:bg-primary/90 cursor-pointer"
+        : "bg-gray-400 cursor-not-allowed"
+    }`}
                 >
                   Add to Cart
                 </button>
