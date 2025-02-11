@@ -1,12 +1,15 @@
 import { useNavigate, useParams } from "react-router";
 import { useGetSingleProductQuery } from "../../../redux/features/product/productApi";
 import ProductDetailsSkeleton from "../../../components/main/skeletons/ProductDetailsSkeleton";
+import { useAppDispatch } from "../../../redux/hooks";
+import { addItem } from "../../../redux/features/product/productCartSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading } = useGetSingleProductQuery(id);
   const product = data?.data;
+  const dispatch = useAppDispatch();
 
   if (isLoading) {
     return <ProductDetailsSkeleton />;
@@ -39,8 +42,13 @@ const ProductDetails = () => {
           {product.inStock ? "In Stock" : "Out of Stock"}
         </p>
         <button
-          onClick={() => navigate("/checkout")}
-          className="mt-6 w-full bg-primary text-white py-3 rounded-md transition duration-300"
+          onClick={() => {
+            dispatch(addItem({ ...product, cartQuantity: 1 }));
+            navigate("/checkout");
+          }}
+          className={`mt-6 w-full bg-primary text-white py-3 rounded-md transition duration-300 ${
+            !product.inStock ? "cursor-not-allowed opacity-50" : ""
+          }`}
           disabled={!product.inStock}
         >
           Buy Now

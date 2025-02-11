@@ -29,13 +29,13 @@ const cartSlice = createSlice({
     },
     updateItemQuantity: (
       state,
-      action: PayloadAction<{ id: string; quantity: number }>
+      action: PayloadAction<{ id: string; cartQuantity: number }>
     ) => {
       const itemIndex = state.books.findIndex(
         (book) => book._id === action.payload.id
       );
       if (itemIndex !== -1) {
-        state.books[itemIndex].quantity = action.payload.quantity;
+        state.books[itemIndex].cartQuantity = action.payload.cartQuantity;
       }
     },
   },

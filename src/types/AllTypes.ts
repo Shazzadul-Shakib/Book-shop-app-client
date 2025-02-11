@@ -22,6 +22,7 @@ export interface Book {
   author: string;
   price: number;
   quantity: number;
+  cartQuantity:number;
 }
 
 // Define the initial state type

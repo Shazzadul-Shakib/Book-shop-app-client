@@ -23,7 +23,10 @@ const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.books);
 
-  const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+  const totalQuantity = cart.reduce(
+    (total, item) => total + item.cartQuantity,
+    0
+  );
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -78,12 +81,12 @@ const Navbar: React.FC = () => {
           </Link>
 
           {/* User Profile Dropdown */}
-          <div className="relative">
+          <div className="relative ">
             {user ? (
               <div>
                 <button
                   onClick={toggleDropdown}
-                  className="flex items-center text-white focus:outline-none"
+                  className="flex items-center text-white focus:outline-none cursor-pointer"
                 >
                   <CircleUserRound size={24} />
                 </button>

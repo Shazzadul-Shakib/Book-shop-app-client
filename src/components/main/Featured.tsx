@@ -11,8 +11,6 @@ export const FeaturedProducts: React.FC = () => {
   const { data, isLoading } = useGetAllProductQuery(undefined);
   const dispatch = useAppDispatch();
 
-  console.log({ data });
-
   return (
     <div className="bg-primary py-10 px-6 text-white">
       <h2 className="text-center text-3xl font-bold sm:text-4xl">
@@ -56,7 +54,9 @@ export const FeaturedProducts: React.FC = () => {
 
                 <button
                   disabled={!product.inStock}
-                  onClick={() => dispatch(addItem({ ...product, quantity: 1 }))}
+                  onClick={() =>
+                    dispatch(addItem({ ...product, cartQuantity: 1 }))
+                  }
                   className={`mt-4 w-full rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 
     ${
       product.inStock
