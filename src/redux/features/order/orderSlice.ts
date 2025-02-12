@@ -8,9 +8,17 @@ export const OrderApi = baseApi.injectEndpoints({
         method: "POST",
         body: orderSummery,
       }),
-      invalidatesTags: ["Books"],
+      invalidatesTags: ["Books", "Orders"],
+    }),
+    getSinglePersonsOrders: builder.query({
+      query: (userId) => ({
+        url: `/orders/${userId}`,
+        method: "GET",
+      }),
+      providesTags: ["Books", "Orders"],
     }),
   }),
 });
 
-export const { useCreateOrderMutation } = OrderApi;
+export const { useCreateOrderMutation, useGetSinglePersonsOrdersQuery } =
+  OrderApi;
