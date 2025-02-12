@@ -62,12 +62,14 @@ const Navbar: React.FC = () => {
           >
             About
           </Link>
-          <Link
-            to="/dashboard"
-            className="text-white flex items-center gap-1 hover:text-gray-200"
-          >
-            Dashboard
-          </Link>
+          {user && (
+            <Link
+              to={user.role === "admin" ? "/dashboard" : "/user-dashboard"}
+              className="text-white flex items-center gap-1 hover:text-gray-200"
+            >
+              Dashboard
+            </Link>
+          )}
 
           {/* Cart */}
           <Link

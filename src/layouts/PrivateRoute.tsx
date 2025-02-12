@@ -1,14 +1,25 @@
 import { ReactNode } from "react";
 import { useAppSelector } from "../redux/hooks";
-import { currentToken } from "../redux/features/auth/authSlice";
+import { currentToken, currentUser } from "../redux/features/auth/authSlice";
 import { Navigate } from "react-router";
 
-const PrivateRoute = ({ children }: { children: ReactNode }) => {
-  const token = useAppSelector(currentToken);
-  console.log(!token);
+interface PrivateRouteProps {
+  children: ReactNode;
+  requiredRole?: string; // Optional role requirement
+}
 
+const PrivateRoute = ({ children, requiredRole }: PrivateRouteProps) => {
+  const token = useAppSelector(currentToken);
+  const user = useAppSelector(currentUser);
+
+  // If no token, redirect to login
   if (!token) {
     return <Navigate to="/login" replace />;
+  }
+
+  // If role is required and user doesn't have it, redirect to unauthorized
+  if (requiredRole && user?.role !== requiredRole) {
+    return <Navigate to="/unauthorized" replace />;
   }
 
   return children;

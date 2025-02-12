@@ -23,7 +23,7 @@ export const ClientRoutes = [
   {
     path: "/checkout",
     element: (
-      <PrivateRoute>
+      <PrivateRoute requiredRole="user">
         <Checkout />
       </PrivateRoute>
     ),
