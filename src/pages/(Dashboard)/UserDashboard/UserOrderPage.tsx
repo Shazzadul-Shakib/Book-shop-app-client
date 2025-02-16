@@ -10,9 +10,10 @@ const UserOrderPage: React.FC = () => {
   const { data, isLoading } = useGetSinglePersonsOrdersQuery(user?._id);
 
   const orders = data?.data;
+  console.log("UserOrderPage", orders);
 
   return (
-    <div>
+    <div className="min-h-screen overflow-y-auto">
       <p className="text-xl font-semibold mb-4 text-primary">Order History</p>
 
       {isLoading ? (
@@ -28,10 +29,10 @@ const UserOrderPage: React.FC = () => {
           order.products.map((product: IProduct, index: number) => (
             <OrderViewCard
               key={`${order._id}-${index}`}
-              title={product.title}
+              title={product?.productId?.title}
               orderDate={new Date(order.createdAt).toLocaleDateString()}
               paymentStatus={order.status}
-              image={product.image}
+              image={product.productId.image}
             />
           ))
         )

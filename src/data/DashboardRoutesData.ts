@@ -15,12 +15,7 @@ export interface DashboardRoute {
 export const adminDashboardRoutes: DashboardRoute[] = [
   {
     path: "/dashboard",
-    label: "Dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    path: "/dashboard/products",
-    label: "Products",
+    label: "Orders",
     icon: Package,
   },
   {

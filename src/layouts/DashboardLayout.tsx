@@ -12,9 +12,9 @@ const DashboardLayout: React.FC = () => {
     user?.role === "admin" ? adminDashboardRoutes : userDashboardRoutes;
 
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <Sidebar routes={routes} />
-      <div className="flex-1 p-6">
+      <div className="flex-1 p-6 overflow-auto">
         <Outlet />
       </div>
     </div>

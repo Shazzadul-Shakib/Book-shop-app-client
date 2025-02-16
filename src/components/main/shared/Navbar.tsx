@@ -90,8 +90,17 @@ const Navbar: React.FC = () => {
                   onClick={toggleDropdown}
                   className="flex items-center text-white focus:outline-none cursor-pointer"
                 >
-                  <CircleUserRound size={24} />
+                  {user?.image ? (
+                    <img
+                      src={user.image}
+                      alt="User Profile"
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                  ) : (
+                    <CircleUserRound size={24} />
+                  )}
                 </button>
+
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2">
                     <div className="px-4 py-2 text-sm text-gray-700">

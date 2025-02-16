@@ -17,8 +17,26 @@ export const OrderApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Books", "Orders"],
     }),
+    getAllOrders: builder.query({
+      query: () => ({
+        url: `/orders`,
+        method: "GET",
+      }),
+      providesTags: ["Books", "Orders"],
+    }),
+    deleteSigleOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `/orders/${orderId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Books", "Orders"],
+    }),
   }),
 });
 
-export const { useCreateOrderMutation, useGetSinglePersonsOrdersQuery } =
-  OrderApi;
+export const {
+  useCreateOrderMutation,
+  useGetSinglePersonsOrdersQuery,
+  useGetAllOrdersQuery,
+  useDeleteSigleOrderMutation,
+} = OrderApi;

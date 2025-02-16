@@ -8,7 +8,7 @@ export const UserDashboardRoutes: RouteObject[] = [
     element: <UserOrderPage />,
   },
   {
-    path: "userprofile", // Relative path: /user-dashboard/orders
+    path: "userprofile",
     element: <UserProfilePage />,
   },
 ];

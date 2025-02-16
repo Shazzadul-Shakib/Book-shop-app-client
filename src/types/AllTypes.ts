@@ -31,7 +31,7 @@ export interface CartState {
 export interface IProduct {
   image?: string | undefined;
   title: string;
-  productId: string | IProduct; // ID or full product details
+  productId: IProduct; // ID or full product details
   quantity: number; // Quantity of the product in the order
   price?: number; // Optional price of the product at the time of order
 }

@@ -5,7 +5,7 @@ import { ClientRoutes } from "./ClientRoutes";
 import PrivateRoute from "../layouts/PrivateRoute";
 import Unauthorized from "../pages/(Main)/Unauthorized/Unauthorized";
 import { UserDashboardRoutes } from "./UserDashboardRoutes";
-import { adminDashboardRoutes } from "../data/DashboardRoutesData";
+import { AdminDashboardRoutes } from "./AdminDashboardRoutes";
 
 export const Router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ export const Router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
-    children: adminDashboardRoutes,
+    children: AdminDashboardRoutes,
   },
   {
     path: "/user-dashboard",

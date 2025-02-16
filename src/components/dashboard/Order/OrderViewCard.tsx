@@ -11,6 +11,8 @@ const OrderViewCard: React.FC<OrderViewCardProps> = ({
   orderDate,
   paymentStatus,
 }) => {
+
+  console.log("OrderViewCardProps", image, title, orderDate, paymentStatus);
   // Determine the payment status color
   const getPaymentStatusColor = () => {
     switch (paymentStatus) {
@@ -39,7 +41,7 @@ const OrderViewCard: React.FC<OrderViewCardProps> = ({
       {/* Product Details */}
       <div className="ml-4 flex-1">
         <h3 className="text-lg font-semibold text-gray-800">
-          {title || "Hello"}
+          {title}
         </h3>
         <p className="text-sm text-gray-500">
           Order Date: {orderDate || "12-02-2025"}
