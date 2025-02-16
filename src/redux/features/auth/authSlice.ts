@@ -5,7 +5,8 @@ export interface User {
   name: string;
   email: string;
   image: string;
-  role:string
+  role:string;
+  isBlocked:boolean;
 }
 
 interface AuthState {

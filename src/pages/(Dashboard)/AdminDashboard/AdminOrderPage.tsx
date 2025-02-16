@@ -9,7 +9,7 @@ const AdminOrderPage: React.FC = () => {
   const orders: Order[] = data?.data || [];
 
   return (
-    <div className="p-6  mx-auto">
+    <div className="  mx-auto">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
         Admin Order View
       </h2>
