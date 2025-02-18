@@ -1,6 +1,7 @@
 import { RouteObject } from "react-router";
 import AdminOrderPage from "../pages/(Dashboard)/AdminDashboard/AdminOrderPage";
 import AdminViewUsersPage from "../pages/(Dashboard)/AdminDashboard/AdminViewUsersPage";
+import AdminBooksPage from "../pages/(Dashboard)/AdminDashboard/AdminBooksPage";
 
 export const AdminDashboardRoutes: RouteObject[] = [
   {
@@ -10,5 +11,9 @@ export const AdminDashboardRoutes: RouteObject[] = [
   {
     path: "/dashboard/users",
     element: <AdminViewUsersPage />,
+  },
+  {
+    path: "/dashboard/books",
+    element: <AdminBooksPage />,
   },
 ];

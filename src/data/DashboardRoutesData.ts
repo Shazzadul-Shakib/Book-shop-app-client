@@ -24,8 +24,8 @@ export const adminDashboardRoutes: DashboardRoute[] = [
     icon: Users,
   },
   {
-    path: "/dashboard/settings",
-    label: "Settings",
+    path: "/dashboard/books",
+    label: "Book Management",
     icon: Settings,
   },
 ];

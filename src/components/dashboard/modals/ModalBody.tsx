@@ -6,7 +6,7 @@ interface ModalBodyProps {
 
 const ModalBody: React.FC<ModalBodyProps> = ({ children }) => {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 ">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 overflow-y-auto">
       <div className="w-full">
         {children}
       </div>

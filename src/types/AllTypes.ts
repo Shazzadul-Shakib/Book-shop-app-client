@@ -21,6 +21,9 @@ export interface Book {
   author: string;
   price: number;
   quantity: number;
+  description: string;
+  inStock:boolean;
+  category: "Fiction" | "Science" | "SelfDevelopment" | "Poetry" | "Religious";
   cartQuantity: number;
 }
 

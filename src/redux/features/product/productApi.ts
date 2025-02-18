@@ -16,7 +16,27 @@ export const productApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Books"],
     }),
+    deleteSingleProduct: builder.mutation({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Books"],
+    }),
+    updateSingleProduct: builder.mutation({
+      query: ({ productId, updatedProduct }) => ({
+        url: `/products/${productId}`,
+        method: "PATCH",
+        body: updatedProduct,
+      }),
+      invalidatesTags: ["Books"],
+    }),
   }),
 });
 
-export const { useGetAllProductQuery,useGetSingleProductQuery } = productApi;
+export const {
+  useGetAllProductQuery,
+  useGetSingleProductQuery,
+  useDeleteSingleProductMutation,
+  useUpdateSingleProductMutation
+} = productApi;
