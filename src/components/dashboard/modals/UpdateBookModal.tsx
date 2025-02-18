@@ -26,13 +26,13 @@ const UpdateBookModal: React.FC<UpdateBookModalProps> = ({ book, onClose }) => {
     quantity: number;
   }>({
     defaultValues: {
-      title: book.title,
-      author: book.author,
-      price: book.price,
-      category: book.category,
-      image: book.image || "",
-      description: book.description || "",
-      quantity: book.quantity || 0,
+      title: book?.title,
+      author: book?.author,
+      price: book?.price,
+      category: book?.category,
+      image: book?.image || "",
+      description: book?.description || "",
+      quantity: book?.quantity || 0,
     },
   });
 
