@@ -3,11 +3,12 @@ import {
   useDeleteSingleProductMutation,
   useGetAllProductQuery,
 } from "../../../redux/features/product/productApi";
-import { Pencil, Trash } from "lucide-react";
+import { BookPlus, Pencil, Trash } from "lucide-react";
 import ModalBody from "../../../components/dashboard/modals/ModalBody";
 import UpdateBookModal from "../../../components/dashboard/modals/UpdateBookModal";
 import { Book } from "../../../types/AllTypes";
 import AdminBookManagementSkeleton from "../../../components/main/skeletons/AdminBookManagementSkeleton";
+import AddNewBookModal from "../../../components/dashboard/modals/AddNewBookModal";
 
 const AdminBooksPage: React.FC = () => {
   const { data, isLoading } = useGetAllProductQuery(undefined);
@@ -16,6 +17,7 @@ const AdminBooksPage: React.FC = () => {
 
   // State for handling modal
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
   const handleDelete = async (id: string) => {
@@ -38,9 +40,18 @@ const AdminBooksPage: React.FC = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">
-        Books Management
-      </h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-gray-800">Books Management</h2>
+        <div>
+          <button
+            className="bg-primary flex items-center justify-center gap-3 text-white px-4 py-2 rounded-lg cursor-pointer"
+            onClick={() => setIsAddBookModalOpen(true)}
+          >
+            <BookPlus size={20} />
+            Add New Book
+          </button>
+        </div>
+      </div>
 
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {data?.data?.map((book: Book) => (
@@ -100,6 +111,11 @@ const AdminBooksPage: React.FC = () => {
             book={selectedBook}
             onClose={() => setIsModalOpen(false)}
           />
+        </ModalBody>
+      )}
+      {isAddBookModalOpen && (
+        <ModalBody>
+          <AddNewBookModal onClose={() => setIsAddBookModalOpen(false)} />
         </ModalBody>
       )}
     </div>

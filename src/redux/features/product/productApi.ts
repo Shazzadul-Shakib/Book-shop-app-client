@@ -2,6 +2,14 @@ import { baseApi } from "../../api/baseApi";
 
 export const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    addProduct: builder.mutation({
+      query: (data) => ({
+        url: "/products",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Books"],
+    }),
     getAllProduct: builder.query({
       query: () => ({
         url: "/products",
@@ -35,8 +43,9 @@ export const productApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useAddProductMutation,
   useGetAllProductQuery,
   useGetSingleProductQuery,
   useDeleteSingleProductMutation,
-  useUpdateSingleProductMutation
+  useUpdateSingleProductMutation,
 } = productApi;
