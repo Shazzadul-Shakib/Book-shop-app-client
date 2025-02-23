@@ -11,10 +11,13 @@ export const productApi = baseApi.injectEndpoints({
       invalidatesTags: ["Books"],
     }),
     getAllProduct: builder.query({
-      query: () => ({
-        url: "/products",
-        method: "GET",
-      }),
+      query: (params) => {
+        const queryString = new URLSearchParams(params).toString();
+        return {
+          url: `/products?${queryString}`,
+          method: "GET",
+        };
+      },
       providesTags: ["Books"],
     }),
     getSingleProduct: builder.query({

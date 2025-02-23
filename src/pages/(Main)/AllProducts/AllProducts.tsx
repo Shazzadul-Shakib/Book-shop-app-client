@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useGetAllProductQuery } from "../../../redux/features/product/productApi";
 import ProductCardSkeleton from "../../../components/main/skeletons/ProductCardSkeleton";
@@ -7,8 +8,36 @@ import { addItem } from "../../../redux/features/product/productCartSlice";
 
 const AllProducts = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetAllProductQuery(undefined);
   const dispatch = useAppDispatch();
+
+  // State for search, filters, and sorting
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
+  const [author, setAuthor] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
+
+  // Debounced search input to prevent excessive API calls
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search), 500);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  // Construct query params dynamically
+  const queryParams: Record<string, string> = {};
+  if (debouncedSearch) queryParams.search = debouncedSearch;
+  if (category) queryParams.category = category;
+  if (author) queryParams.author = author;
+  queryParams.sortBy = "price";
+  queryParams.sortOrder = sortOrder;
+
+  // Fetch data with filters & sorting
+  const { data, isLoading } = useGetAllProductQuery(queryParams);
+
+  // Extract unique authors from the filtered books
+  const uniqueAuthors = Array.from(
+    new Set(data?.data?.map((book: IBook) => book.author) || [])
+  );
 
   return (
     <div className="p-10 bg-primary min-h-screen text-white">
@@ -17,26 +46,46 @@ const AllProducts = () => {
         <input
           type="text"
           placeholder="Search by title, author, or category"
-          className="p-3 rounded-lg w-full sm:w-1/3 text-xs text-white border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-400"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="p-3 rounded-lg w-full sm:w-1/3 text-xs text-white border border-gray-300 bg-primary focus:outline-none focus:ring-0 focus:border-gray-400"
         />
-        <select className="p-3 rounded-lg w-full sm:w-1/5 text-xs text-white border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-400 appearance-none pr-8 bg-primary">
-          <option>All Categories</option>
-          <option>Fiction</option>
-          <option>Non-Fiction</option>
-          <option>Mystery</option>
-          <option>Sci-Fi</option>
-          <option>Biography</option>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="p-3 rounded-lg w-full sm:w-1/5 text-xs text-white border border-gray-300 bg-primary focus:outline-none focus:ring-0 focus:border-gray-400"
+        >
+          <option value="">All Categories</option>
+          <option value="Fiction">Fiction</option>
+          <option value="Science">Science</option>
+          <option value="SelfDevelopment">Self-Development</option>
+          <option value="Poetry">Poetry</option>
+          <option value="Religious">Religious</option>
         </select>
-        <select className="p-3 rounded-lg w-full sm:w-1/5 text-xs text-white border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-400 appearance-none pr-8 bg-primary">
-          <option>All Authors</option>
-          <option>Author A</option>
-          <option>Author B</option>
+        <select
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+          className="p-3 rounded-lg w-full sm:w-1/5 text-xs text-white border border-gray-300 bg-primary focus:outline-none focus:ring-0 focus:border-gray-400"
+        >
+          <option value="">All Authors</option>
+          {uniqueAuthors.length > 0 ? (
+            uniqueAuthors.map((author) => (
+              <option key={author} value={author}>
+                {author}
+              </option>
+            ))
+          ) : (
+            <option disabled>No Authors Available</option>
+          )}
         </select>
-        <select className="p-3 rounded-lg w-full sm:w-1/5 text-xs text-white border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-400 appearance-none pr-8 bg-primary">
-          <option>Price Range</option>
-          <option>Below $50</option>
-          <option>$50 - $100</option>
-          <option>Above $100</option>
+
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="p-3 rounded-lg w-full sm:w-1/5 text-xs text-white border border-gray-300 bg-primary focus:outline-none focus:ring-0 focus:border-gray-400"
+        >
+          <option value="asc">Sort by Price: Low to High</option>
+          <option value="desc">Sort by Price: High to Low</option>
         </select>
       </div>
 
@@ -88,13 +137,15 @@ const AllProducts = () => {
 
                 <button
                   disabled={!product.inStock}
-                  onClick={() => dispatch(addItem({ ...product, cartQuantity: 1 }))}
+                  onClick={() =>
+                    dispatch(addItem({ ...product, cartQuantity: 1 }))
+                  }
                   className={`mt-4 w-full rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 
-    ${
-      product.inStock
-        ? "bg-primary hover:bg-primary/90 cursor-pointer"
-        : "bg-gray-400 cursor-not-allowed"
-    }`}
+                    ${
+                      product.inStock
+                        ? "bg-primary hover:bg-primary/90 cursor-pointer"
+                        : "bg-gray-400 cursor-not-allowed"
+                    }`}
                 >
                   Add to Cart
                 </button>

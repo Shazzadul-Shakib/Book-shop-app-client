@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useUserRegisterMutation } from "../../../redux/features/auth/authApi";
 
 // Zod schema for register form validation
 const registerSchema = z.object({
@@ -15,6 +16,8 @@ type RegisterFormInputs = z.infer<typeof registerSchema>;
 
 const Register: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [userRegister, { isLoading }] = useUserRegisterMutation();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,9 +26,13 @@ const Register: React.FC = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
+  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
     console.log("Register Data:", data);
     // Add your registration logic here
+    const response = await userRegister(data);
+    if (response?.data?.success) {
+      navigate("/login");
+    }
   };
 
   return (
@@ -98,7 +105,7 @@ const Register: React.FC = () => {
             type="submit"
             className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700"
           >
-            Register
+            {isLoading ? "Loading..." : "Register"}
           </button>
         </form>
         <p className="mt-4 text-center">
