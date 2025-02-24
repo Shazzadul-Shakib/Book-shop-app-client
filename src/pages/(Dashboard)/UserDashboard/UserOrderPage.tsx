@@ -10,8 +10,6 @@ const UserOrderPage: React.FC = () => {
   const { data, isLoading } = useGetSinglePersonsOrdersQuery(user?._id);
 
   const orders = data?.data;
-  console.log("UserOrderPage", orders);
-
   return (
     <div className="min-h-screen overflow-y-auto">
       <p className="text-xl font-semibold mb-4 text-primary">Order History</p>

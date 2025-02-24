@@ -69,7 +69,7 @@ const AllProducts = () => {
         >
           <option value="">All Authors</option>
           {uniqueAuthors.length > 0 ? (
-            uniqueAuthors.map((author) => (
+            (uniqueAuthors as string[]).map((author: string) => (
               <option key={author} value={author}>
                 {author}
               </option>

@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Link, useNavigate } from "react-router";
 import { useUserRegisterMutation } from "../../../redux/features/auth/authApi";
+import { toast } from "sonner";
 
 // Zod schema for register form validation
 const registerSchema = z.object({
@@ -27,11 +28,14 @@ const Register: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
-    console.log("Register Data:", data);
     // Add your registration logic here
     const response = await userRegister(data);
     if (response?.data?.success) {
       navigate("/login");
+      toast.success("Registration successful");
+    }
+    if (response.error) {
+      toast.error(response?.error?.data?.error[0]?.message);
     }
   };
 

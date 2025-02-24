@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { currentUser, setUser } from "../../../redux/features/auth/authSlice";
 import { useUpdateProfileMutation } from "../../../redux/features/auth/authApi";
 import { verifyToken } from "../../../utils/verifyToken";
+import { toast } from "sonner";
+import LoadingSpinner from "../../main/shared/Spinner";
 
 const updateProfileSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -65,6 +67,7 @@ const UpdateUserProfileModal: React.FC<UpdateProfileModalCardProps> = ({
 
       dispatch(setUser({ user: updatedUser, token: result.data.token }));
       onclose();
+      toast.success("Profile updated successfully");
     } catch (error) {
       console.error("Error updating profile:", error);
     } finally {
@@ -144,7 +147,7 @@ const UpdateUserProfileModal: React.FC<UpdateProfileModalCardProps> = ({
             type="submit"
             className="w-full inline-flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary cursor-pointer"
           >
-            {isLoading || isUpdating ? "Updating..." : "Update Profile"}
+            {isLoading || isUpdating ? <LoadingSpinner /> : "Update Profile"}
           </button>
         </div>
       </form>

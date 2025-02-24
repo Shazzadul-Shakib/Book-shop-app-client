@@ -12,7 +12,6 @@ const OrderViewCard: React.FC<OrderViewCardProps> = ({
   paymentStatus,
 }) => {
 
-  console.log("OrderViewCardProps", image, title, orderDate, paymentStatus);
   // Determine the payment status color
   const getPaymentStatusColor = () => {
     switch (paymentStatus) {

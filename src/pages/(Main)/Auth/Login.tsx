@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useAppDispatch } from "../../../redux/hooks";
 import { useLoginMutation } from "../../../redux/features/auth/authApi";
 import { verifyToken } from "../../../utils/verifyToken";
 import { setUser } from "../../../redux/features/auth/authSlice";
+import { toast } from "sonner";
 
 // Zod schema for login form validation
 const loginSchema = z.object({
@@ -25,17 +26,23 @@ const Login: React.FC = () => {
   } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "shakib@gm.com",
-      password: "aaaaappppp",
+      email: "",
+      password: "",
     },
   });
   const dispatch = useAppDispatch();
   const [login, { isLoading }] = useLoginMutation();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    const result = await login(data).unwrap();
-    const user = verifyToken(result.data.token);
-    dispatch(setUser({ user, token: result.data.token }));
+    const result = await login(data);
+    if (result.error) {
+      toast.error(result?.error?.data?.message);
+    }
+    const user = verifyToken(result?.data?.data?.token);
+    dispatch(setUser({ user, token: result?.data?.data?.token }));
+    toast.success("Login successful");
+    navigate("/");
   };
 
   return (

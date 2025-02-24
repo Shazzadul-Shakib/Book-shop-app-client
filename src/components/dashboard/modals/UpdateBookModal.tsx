@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Book } from "../../../types/AllTypes";
@@ -67,13 +68,11 @@ const UpdateBookModal: React.FC<UpdateBookModalProps> = ({ book, onClose }) => {
         const uploadedImageUrl = await getImageUrl(selectedFile);
         data.image = uploadedImageUrl;
       }
-      console.log(data);
       const res = await updateSingleProduct({
         productId: book._id,
         updatedProduct: data,
       }).unwrap();
       onClose();
-      console.log(res);
     } catch (error) {
       console.error("Error updating Book:", error);
     } finally {

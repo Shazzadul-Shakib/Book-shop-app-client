@@ -8,7 +8,9 @@ import {
   updateItemQuantity,
 } from "../../../redux/features/product/productCartSlice";
 import { useCreateOrderMutation } from "../../../redux/features/order/orderSlice";
-import { useNavigate } from "react-router"; 
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
+import LoadingSpinner from "../../../components/main/shared/Spinner";
 
 const Checkout: React.FC = () => {
   const cart = useAppSelector((state) => state.cart.books);
@@ -21,7 +23,7 @@ const Checkout: React.FC = () => {
 
   useEffect(() => {
     if (success === "true") {
-      alert("🎉 Payment Successful! Thank you for your purchase.");
+      toast.success("Payment successful");
       dispatch(clearCart());
     }
   }, [success, dispatch]);
@@ -59,6 +61,7 @@ const Checkout: React.FC = () => {
       const res = await createOrder(orderSummery).unwrap();
       if (res?.success && res?.data) {
         window.location.href = res.data;
+        toast.success("Order created successfully");
       } else {
         console.error("Order creation failed:", res);
       }
@@ -196,7 +199,11 @@ const Checkout: React.FC = () => {
                 onClick={handleCreateOrder}
                 className="cursor-pointer w-full mt-6 bg-primary text-white py-3 rounded-lg font-semibold hover:bg-teal-600"
               >
-                {isLoading ? "loading" : "Proceed to Checkout"}
+                {isLoading ? (
+                  <LoadingSpinner/>
+                ) : (
+                  "Proceed to Checkout"
+                )}
               </button>
             </div>
           </div>

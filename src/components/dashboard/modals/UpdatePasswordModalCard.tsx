@@ -7,6 +7,8 @@ import { Eye, EyeOff } from "lucide-react";
 import { useAppSelector } from "../../../redux/hooks";
 import { currentUser } from "../../../redux/features/auth/authSlice";
 import { useUpdatePasswordMutation } from "../../../redux/features/auth/authApi";
+import { toast } from "sonner";
+import LoadingSpinner from "../../main/shared/Spinner";
 
 const updatePasswordSchema = z.object({
   currentPassword: z.string().min(1, "Current Password is required"),
@@ -38,15 +40,13 @@ const UpdatePasswordModalCard: React.FC<UpdatePasswordModalCardProps> = ({
   const onSubmit = async (data: UpdatePasswordFormData) => {
     try {
       const res = await updatePassword({ data, userId: user?._id }).unwrap();
-      console.log("Response:", res);
 
       if (res.success) {
-        alert(res?.message || "password updaed successfully");
+        toast.success(res?.message || "password updaed successfully");
         onclose();
       }
     } catch (error: any) {
-      console.log("Error:", error);
-      alert(error?.data?.message || "Failed to update password");
+      toast.error(error?.data?.message || "Failed to update password");
     }
   };
 
@@ -123,7 +123,7 @@ const UpdatePasswordModalCard: React.FC<UpdatePasswordModalCardProps> = ({
             type="submit"
             className="w-full  inline-flex justify-center py-3 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary cursor-pointer"
           >
-            {isLoading ? "Loading..." : "Update Password"}
+            {isLoading ? <LoadingSpinner /> : "Update Password"}
           </button>
         </div>
       </form>
