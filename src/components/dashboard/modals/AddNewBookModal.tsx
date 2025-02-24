@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { getImageUrl } from "../../../utils/getImageUrl";
 import { useAddProductMutation } from "../../../redux/features/product/productApi";
+import LoadingSpinner from "../../main/shared/Spinner";
+import { toast } from "sonner";
 
 interface AddNewBookModalProps {
   onClose: VoidFunction;
@@ -67,6 +69,7 @@ const AddNewBookModal: React.FC<AddNewBookModalProps> = ({ onClose }) => {
       const response = await addProduct(data).unwrap();
       if (response.success) {
         onClose();
+        toast.success("Book added successfully");
       }
     } catch (error) {
       console.error("Error updating Book:", error);
@@ -232,7 +235,7 @@ const AddNewBookModal: React.FC<AddNewBookModalProps> = ({ onClose }) => {
             className="bg-primary text-white px-6 py-2 rounded-md"
             disabled={isLoading}
           >
-            {isLoading || isAdding ? "Adding..." : "Add Book"}
+            {isLoading || isAdding ? <LoadingSpinner/> : "Add Book"}
           </button>
         </div>
       </form>

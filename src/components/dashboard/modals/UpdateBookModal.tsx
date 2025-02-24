@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Book } from "../../../types/AllTypes";
 import { getImageUrl } from "../../../utils/getImageUrl";
 import { useUpdateSingleProductMutation } from "../../../redux/features/product/productApi";
+import { toast } from "sonner";
+import LoadingSpinner from "../../main/shared/Spinner";
 
 interface UpdateBookModalProps {
   book: Book;
@@ -68,11 +70,12 @@ const UpdateBookModal: React.FC<UpdateBookModalProps> = ({ book, onClose }) => {
         const uploadedImageUrl = await getImageUrl(selectedFile);
         data.image = uploadedImageUrl;
       }
-      const res = await updateSingleProduct({
+      await updateSingleProduct({
         productId: book._id,
         updatedProduct: data,
       }).unwrap();
       onClose();
+      toast.success("Book updated successfully");
     } catch (error) {
       console.error("Error updating Book:", error);
     } finally {
@@ -226,7 +229,7 @@ const UpdateBookModal: React.FC<UpdateBookModalProps> = ({ book, onClose }) => {
             type="submit"
             className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition"
           >
-            {isLoading || isUpdating ? "Updating..." : "Update"}
+            {isLoading || isUpdating ? <LoadingSpinner /> : "Update"}
           </button>
         </div>
       </form>

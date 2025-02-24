@@ -8,6 +8,7 @@ import { useLoginMutation } from "../../../redux/features/auth/authApi";
 import { verifyToken } from "../../../utils/verifyToken";
 import { setUser } from "../../../redux/features/auth/authSlice";
 import { toast } from "sonner";
+import LoadingSpinner from "../../../components/main/shared/Spinner";
 
 // Zod schema for login form validation
 const loginSchema = z.object({
@@ -25,24 +26,28 @@ const Login: React.FC = () => {
     formState: { errors },
   } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
   });
   const dispatch = useAppDispatch();
   const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    const result = await login(data);
-    if (result.error) {
-      toast.error(result?.error?.data?.message);
+    try {
+      const result = await login(data).unwrap();
+
+      if (result.success) {
+        const user = verifyToken(result.data.token);
+        dispatch(setUser({ user, token: result.data.token }));
+        toast.success("Login successful");
+        navigate("/");
+      }
+    } catch (error: any) {
+      if (error.data && error.data.message) {
+        toast.error(error.data.message);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     }
-    const user = verifyToken(result?.data?.data?.token);
-    dispatch(setUser({ user, token: result?.data?.data?.token }));
-    toast.success("Login successful");
-    navigate("/");
   };
 
   return (
@@ -98,9 +103,10 @@ const Login: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700"
+            className="w-full bg-primary text-white p-2 rounded-lg cursor-pointer"
+            disabled={isLoading}
           >
-            {isLoading ? "Logging..." : "Login"}
+            {isLoading ? <LoadingSpinner /> : "Login"}
           </button>
         </form>
         <p className="mt-4 text-center">

@@ -10,42 +10,42 @@ export const Testimonials: React.FC = () => {
       name: "John Doe",
       feedback:
         "I found the perfect book for my weekend read! The collection is amazing, and the delivery was super fast.",
-      image: "/Hero/hero-bg.jpg", // Replace with actual customer image
+      image: "/Profile/p1.jfif", // Replace with actual customer image
     },
     {
       id: 2,
       name: "Jane Smith",
       feedback:
         "This store has the best selection of classics. I’ve been recommending it to all my book-loving friends!",
-      image: "/Hero/hero-bg.jpg", // Replace with actual customer image
+      image: "/Profile/p2.jfif", // Replace with actual customer image
     },
     {
       id: 3,
       name: "Emily Johnson",
       feedback:
         "The customer service is fantastic. They helped me find a rare book I’ve been searching for years!",
-      image: "/Hero/hero-bg.jpg", // Replace with actual customer image
+      image: "/Profile/p3.jfif", // Replace with actual customer image
     },
     {
       id: 4,
       name: "Emily Johnson",
       feedback:
         "The customer service is fantastic. They helped me find a rare book I’ve been searching for years!",
-      image: "/Hero/hero-bg.jpg", // Replace with actual customer image
+      image: "/Profile/p4.jfif", // Replace with actual customer image
     },
     {
       id: 5,
       name: "Emily Johnson",
       feedback:
         "The customer service is fantastic. They helped me find a rare book I’ve been searching for years!",
-      image: "/Hero/hero-bg.jpg", // Replace with actual customer image
+      image: "/Profile/p5.jfif", // Replace with actual customer image
     },
     {
       id: 6,
       name: "Emily Johnson",
       feedback:
         "The customer service is fantastic. They helped me find a rare book I’ve been searching for years!",
-      image: "/Hero/hero-bg.jpg", // Replace with actual customer image
+      image: "/Profile/p6.jfif", // Replace with actual customer image
     },
   ];
 

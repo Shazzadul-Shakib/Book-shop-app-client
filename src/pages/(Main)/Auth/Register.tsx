@@ -5,6 +5,7 @@ import { z } from "zod";
 import { Link, useNavigate } from "react-router";
 import { useUserRegisterMutation } from "../../../redux/features/auth/authApi";
 import { toast } from "sonner";
+import LoadingSpinner from "../../../components/main/shared/Spinner";
 
 // Zod schema for register form validation
 const registerSchema = z.object({
@@ -28,14 +29,19 @@ const Register: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
-    // Add your registration logic here
-    const response = await userRegister(data);
-    if (response?.data?.success) {
-      navigate("/login");
-      toast.success("Registration successful");
-    }
-    if (response.error) {
-      toast.error(response?.error?.data?.error[0]?.message);
+    try {
+      const response = await userRegister(data).unwrap();
+
+      if (response.success) {
+        navigate("/login");
+        toast.success("Registration successful");
+      }
+    } catch (error: any) {
+      if (error.data && error.data.error) {
+        toast.error(error.data.error[0]?.message || "Registration failed");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     }
   };
 
@@ -107,9 +113,10 @@ const Register: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700"
+            className="w-full bg-primary text-white p-2 rounded-lg cursor-pointer"
+            disabled={isLoading}
           >
-            {isLoading ? "Loading..." : "Register"}
+            {isLoading ? <LoadingSpinner /> : "Register"}
           </button>
         </form>
         <p className="mt-4 text-center">

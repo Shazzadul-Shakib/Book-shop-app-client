@@ -1,5 +1,6 @@
 import { Trash2 } from "lucide-react";
 import { useDeleteSigleOrderMutation } from "../../../redux/features/order/orderSlice";
+import LoadingSpinner from "../../main/shared/Spinner";
 
 export interface Order {
   _id: string;
@@ -74,7 +75,7 @@ const AdminOrderView: React.FC<{ order: Order }> = ({ order }) => {
           onClick={() => handleDelete(order?._id)}
           className="ml-4 text-red-500 hover:text-red-700"
         >
-          {isLoading ? "..." : <Trash2 size={20} />}
+          {isLoading ? <LoadingSpinner /> : <Trash2 size={20} />}
         </button>
       </div>
     </div>
