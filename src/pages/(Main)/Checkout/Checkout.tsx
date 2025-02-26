@@ -82,11 +82,11 @@ const Checkout: React.FC = () => {
       {/* Conditional rendering for empty cart */}
       {cart.length === 0 ? (
         <div className="w-full max-w-md mx-auto text-center mt-6">
-          <p className="text-xl font-semibold text-gray-800">
+          <p className="text-xl mb-8 text-white">
             Your cart is empty. Please add some items to proceed.
           </p>
           <button
-            className="mt-4 bg-primary text-white px-5 cursor-pointer py-3 rounded-lg hover:bg-teal-600"
+            className="cursor-pointer bg-white text-primary hover:bg-gray-100 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300"
             onClick={() => navigate("/products")} // Use navigate for redirection
           >
             Go to Shop
