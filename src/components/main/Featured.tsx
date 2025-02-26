@@ -5,6 +5,7 @@ import ProductCardSkeleton from "./skeletons/ProductCardSkeleton";
 import { IBook } from "../../types/AllTypes";
 import { useAppDispatch } from "../../redux/hooks";
 import { addItem } from "../../redux/features/product/productCartSlice";
+import { toast } from "sonner";
 
 export const FeaturedProducts: React.FC = () => {
   const navigate = useNavigate();
@@ -55,7 +56,8 @@ export const FeaturedProducts: React.FC = () => {
                 <button
                   disabled={!product.inStock}
                   onClick={() =>
-                    dispatch(addItem({ ...product, cartQuantity: 1 }))
+                    dispatch(addItem({ ...product, cartQuantity: 1 })) &&
+                    toast.success("Product added to cart")
                   }
                   className={`mt-4 w-full rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 
     ${

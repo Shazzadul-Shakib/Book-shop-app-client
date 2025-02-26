@@ -40,8 +40,12 @@ const Navbar: React.FC = () => {
     <nav className="bg-primary p-4 sticky top-0 z-50 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="text-white text-2xl font-bold">My Bookstore</div>
-
+        <Link
+          to="/"
+          className="text-white flex items-center gap-1 hover:text-gray-200"
+        >
+          <div className="text-white text-2xl font-bold">My Bookstore</div>
+        </Link>
         {/* Desktop Nav Items */}
         <div className="hidden md:flex items-center space-x-6">
           <Link

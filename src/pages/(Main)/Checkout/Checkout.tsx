@@ -22,9 +22,11 @@ const Checkout: React.FC = () => {
   const success = searchParams.get("success");
 
   useEffect(() => {
-    if (success === "true") {
-      toast.success("Payment successful");
-      dispatch(clearCart());
+    if (success && success.toLowerCase() === "true") {
+      setTimeout(() => {
+        toast.success("Order created successfully");
+        dispatch(clearCart());
+      }, 100); // Small delay
     }
   }, [success, dispatch]);
 
@@ -61,7 +63,6 @@ const Checkout: React.FC = () => {
       const res = await createOrder(orderSummery).unwrap();
       if (res?.success && res?.data) {
         window.location.href = res.data;
-        toast.success("Order created successfully");
       } else {
         console.error("Order creation failed:", res);
       }
@@ -199,11 +200,7 @@ const Checkout: React.FC = () => {
                 onClick={handleCreateOrder}
                 className="cursor-pointer w-full mt-6 bg-primary text-white py-3 rounded-lg font-semibold hover:bg-teal-600"
               >
-                {isLoading ? (
-                  <LoadingSpinner/>
-                ) : (
-                  "Proceed to Checkout"
-                )}
+                {isLoading ? <LoadingSpinner /> : "Proceed to Checkout"}
               </button>
             </div>
           </div>

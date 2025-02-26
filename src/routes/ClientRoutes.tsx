@@ -4,6 +4,7 @@ import AllProducts from "../pages/(Main)/AllProducts/AllProducts";
 import Login from "../pages/(Main)/Auth/Login";
 import Register from "../pages/(Main)/Auth/Register";
 import Checkout from "../pages/(Main)/Checkout/Checkout";
+import PaymentFailed from "../pages/(Main)/Checkout/PaymentFailed";
 import Home from "../pages/(Main)/Home/Home";
 import ProductDetails from "../pages/(Main)/Product/ProductDetails";
 
@@ -27,6 +28,10 @@ export const ClientRoutes = [
         <Checkout />
       </PrivateRoute>
     ),
+  },
+  {
+    path: "/checkout/payment-failed",
+    element: <PaymentFailed />,
   },
   {
     path: "/about",

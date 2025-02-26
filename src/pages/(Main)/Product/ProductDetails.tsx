@@ -3,6 +3,7 @@ import { useGetSingleProductQuery } from "../../../redux/features/product/produc
 import ProductDetailsSkeleton from "../../../components/main/skeletons/ProductDetailsSkeleton";
 import { useAppDispatch } from "../../../redux/hooks";
 import { addItem } from "../../../redux/features/product/productCartSlice";
+import { toast } from "sonner";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -45,8 +46,9 @@ const ProductDetails = () => {
           onClick={() => {
             dispatch(addItem({ ...product, cartQuantity: 1 }));
             navigate("/checkout");
+            toast.success("Product added to cart");
           }}
-          className={`mt-6 w-full bg-primary text-white py-3 rounded-md transition duration-300 ${
+          className={`mt-6 w-full bg-primary text-white py-3 rounded-md transition duration-300 cursor-pointer ${
             !product.inStock ? "cursor-not-allowed opacity-50" : ""
           }`}
           disabled={!product.inStock}

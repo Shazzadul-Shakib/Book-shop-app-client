@@ -14,10 +14,11 @@ const cartSlice = createSlice({
       const itemIndex = state.books.findIndex(
         (book) => book._id === action.payload._id
       );
+
       if (itemIndex === -1) {
-        state.books.push(action.payload);
+        state.books.push({ ...action.payload, cartQuantity: 1 }); // Ensure cartQuantity is set
       } else {
-        state.books[itemIndex].quantity += 1;
+        state.books[itemIndex].cartQuantity += 1; // Increment cartQuantity
       }
     },
     removeItem: (state, action: PayloadAction<string>) => {

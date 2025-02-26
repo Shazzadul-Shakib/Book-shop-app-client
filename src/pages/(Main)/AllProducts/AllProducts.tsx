@@ -5,6 +5,7 @@ import ProductCardSkeleton from "../../../components/main/skeletons/ProductCardS
 import { IBook } from "../../../types/AllTypes";
 import { useAppDispatch } from "../../../redux/hooks";
 import { addItem } from "../../../redux/features/product/productCartSlice";
+import { toast } from "sonner";
 
 const AllProducts = () => {
   const navigate = useNavigate();
@@ -138,7 +139,8 @@ const AllProducts = () => {
                 <button
                   disabled={!product.inStock}
                   onClick={() =>
-                    dispatch(addItem({ ...product, cartQuantity: 1 }))
+                    dispatch(addItem({ ...product, cartQuantity: 1 })) &&
+                    toast.success("Product added to cart")
                   }
                   className={`mt-4 w-full rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 
                     ${
