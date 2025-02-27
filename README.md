@@ -11,7 +11,7 @@ Visit the live application: [ My Bookstore](https://my-bookstore-shazzadul-shaki
 
 ## **🛠 Technologies Used**
 
-- **Frontend**: React.js, Tailwind CSS
+- **Frontend**: React.js, Tailwind CSS, Redux Toolkit, RTK Query, Cloudinary
 - **Others**: TypeScript for type safety and better developer experience
 
 ---
@@ -42,10 +42,12 @@ Follow these steps to set up the application on your local machine:
 
    ```
 
-3. **Create a .env file in the root directory: Add the following:**
+3. **Create a .env.local file in the root directory: Add the following:**
 
    ```env
-   .....
+   # Cloudinary asset
+   VITE_cloudName=""
+   VITE_cloudPreset=""
    ```
 
 4. **Run the application:**
