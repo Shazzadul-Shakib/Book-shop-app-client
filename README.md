@@ -1,50 +1,64 @@
-# React + TypeScript + Vite
+# **📚 My Bookstore **
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to My Bookstore! Our application offers a streamlined platform for purchasing books, integrated payment solutions, and comprehensive order management for administrators, ensuring a seamless online book shopping experience.
+---
 
-Currently, two official plugins are available:
+## **🚀 Live URL**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Visit the live application: [ My Bookstore](https://my-bookstore-shazzadul-shakib.vercel.app)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## **🛠 Technologies Used**
 
-- Configure the top-level `parserOptions` property like this:
+- **Frontend**: React.js, Tailwind CSS, Redux Toolkit, RTK Query, Cloudinary
+- **Others**: TypeScript for type safety and better developer experience
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## **⚙️ Setup and Installation**
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Follow these steps to set up the application on your local machine:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### **Prerequisites**
+
+- [Node.js](https://nodejs.org/) (v16+)
+- npm (comes with Node.js)
+
+### **Installation**
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/Shazzadul-Shakib/Book-shop-app-client.git
+   cd Book-shop-app-client
+
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+
+   ```
+
+3. **Create a .env.local file in the root directory: Add the following:**
+
+   ```env
+   # Cloudinary asset
+   VITE_cloudName=""
+   VITE_cloudPreset=""
+   ```
+
+4. **Run the application:**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Access the APP locally:**
+
+   ```bash
+   http://localhost:5173
+   ```
+
