@@ -1,6 +1,7 @@
 import { Trash2 } from "lucide-react";
 import { useDeleteSigleOrderMutation } from "../../../redux/features/order/orderSlice";
 import LoadingSpinner from "../../main/shared/Spinner";
+import { toast } from "sonner";
 
 export interface Order {
   _id: string;
@@ -17,9 +18,9 @@ const AdminOrderView: React.FC<{ order: Order }> = ({ order }) => {
   const handleDelete = async (orderId: string) => {
     const result = await deleteSigleOrder(orderId);
     if ("data" in result) {
-      alert(result.data.message);
+      toast.success(result.data.message);
     } else if ("error" in result) {
-      alert("Failed to delete order");
+      toast.error("Failed to delete order");
     }
   };
 
@@ -73,7 +74,7 @@ const AdminOrderView: React.FC<{ order: Order }> = ({ order }) => {
         </span>
         <button
           onClick={() => handleDelete(order?._id)}
-          className="ml-4 text-red-500 hover:text-red-700"
+          className="ml-4 text-red-500 hover:text-red-700 cursor-pointer"
         >
           {isLoading ? <LoadingSpinner /> : <Trash2 size={20} />}
         </button>

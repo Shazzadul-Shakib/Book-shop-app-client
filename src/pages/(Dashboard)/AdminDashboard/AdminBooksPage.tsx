@@ -9,6 +9,7 @@ import UpdateBookModal from "../../../components/dashboard/modals/UpdateBookModa
 import { Book } from "../../../types/AllTypes";
 import AdminBookManagementSkeleton from "../../../components/main/skeletons/AdminBookManagementSkeleton";
 import AddNewBookModal from "../../../components/dashboard/modals/AddNewBookModal";
+import { toast } from "sonner";
 
 const AdminBooksPage: React.FC = () => {
   const { data, isLoading } = useGetAllProductQuery(undefined);
@@ -21,7 +22,8 @@ const AdminBooksPage: React.FC = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
   const handleDelete = async (id: string) => {
-    await deleteSingleProduct(id);
+    const res = await deleteSingleProduct(id);
+    if (res.data) toast.success("Book deleted successfully");
   };
 
   if (isLoading || isBookDeleting)
@@ -84,7 +86,7 @@ const AdminBooksPage: React.FC = () => {
 
             <div className="flex gap-3 mt-4">
               <button
-                className="bg-blue-50 text-blue-600 flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-blue-100 transition-colors"
+                className="bg-blue-50 text-blue-600 flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer"
                 onClick={() => {
                   setSelectedBook(book);
                   setIsModalOpen(true);
@@ -94,7 +96,7 @@ const AdminBooksPage: React.FC = () => {
                 Edit
               </button>
               <button
-                className="bg-red-50 text-red-600 flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors"
+                className="bg-red-50 text-red-600 flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors cursor-pointer"
                 onClick={() => handleDelete(book._id)}
               >
                 <Trash size={16} />

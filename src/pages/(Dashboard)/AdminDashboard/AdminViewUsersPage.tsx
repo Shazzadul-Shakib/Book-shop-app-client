@@ -48,7 +48,7 @@ const AdminViewUsersPage: React.FC = () => {
                             data: { isBlocked: false },
                           })
                         }
-                        className="p-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors duration-200"
+                        className="p-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors duration-200 cursor-pointer"
                         title="Unblock User"
                       >
                         <CircleSlash2 className="w-5 h-5" />
@@ -61,7 +61,7 @@ const AdminViewUsersPage: React.FC = () => {
                             data: { isBlocked: true },
                           })
                         }
-                        className="p-2 rounded-lg bg-red-50 text-green-600 hover:bg-green-100 transition-colors duration-200"
+                        className="p-2 rounded-lg bg-red-50 text-green-600 hover:bg-green-100 transition-colors duration-200 cursor-pointer"
                         title="Block User"
                       >
                         <SquareCheckBig className="w-5 h-5" />

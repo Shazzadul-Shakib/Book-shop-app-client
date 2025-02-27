@@ -220,14 +220,14 @@ const UpdateBookModal: React.FC<UpdateBookModalProps> = ({ book, onClose }) => {
         <div className="flex justify-end gap-4 mt-6">
           <button
             type="button"
-            className="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 transition"
+            className="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 transition cursor-pointer"
             onClick={onClose}
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition"
+            className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition cursor-pointer"
           >
             {isLoading || isUpdating ? <LoadingSpinner /> : "Update"}
           </button>

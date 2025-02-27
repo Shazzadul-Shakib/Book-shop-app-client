@@ -225,14 +225,14 @@ const AddNewBookModal: React.FC<AddNewBookModalProps> = ({ onClose }) => {
         <div className="flex justify-end gap-4 mt-6">
           <button
             type="button"
-            className="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 transition"
+            className="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 transition cursor-pointer"
             onClick={onClose}
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="bg-primary text-white px-6 py-2 rounded-md"
+            className="bg-primary text-white px-6 py-2 rounded-md cursor-pointer"
             disabled={isLoading}
           >
             {isLoading || isAdding ? <LoadingSpinner/> : "Add Book"}

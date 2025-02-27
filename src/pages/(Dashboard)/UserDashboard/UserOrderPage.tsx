@@ -29,8 +29,8 @@ const UserOrderPage: React.FC = () => {
               key={`${order._id}-${index}`}
               title={product?.productId?.title}
               orderDate={new Date(order.createdAt).toLocaleDateString()}
-              paymentStatus={order.status}
-              image={product.productId.image}
+              paymentStatus={order?.status}
+              image={product?.productId?.image}
             />
           ))
         )
