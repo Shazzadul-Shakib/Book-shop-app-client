@@ -30,8 +30,8 @@ Follow these steps to set up the application on your local machine:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/Shazzadul-Shakib/Book-shop-app.git
-   cd Book-shop-app
+   git clone https://github.com/Shazzadul-Shakib/Book-shop-app-client.git
+   cd Book-shop-app-client
 
    ```
 
@@ -45,20 +45,18 @@ Follow these steps to set up the application on your local machine:
 3. **Create a .env file in the root directory: Add the following:**
 
    ```env
-   PORT=5000
-   MONGO_URI=your-mongodb-connection-string
-   NODE_ENV=development
+   .....
    ```
 
 4. **Run the application:**
 
    ```bash
-   npm run start:dev
+   npm run dev
    ```
 
-5. **Access the API locally:**
+5. **Access the APP locally:**
 
    ```bash
-   http://localhost:5000/api
+   http://localhost:5173
    ```
 
